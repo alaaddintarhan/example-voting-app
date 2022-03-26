@@ -19,8 +19,7 @@ class Worker {
         String voterID = voteData.getString("voter_id");
         String vote = voteData.getString("vote");
 
-        System.err.printf("Processing vote for '%s' by '%s'\n", vote, voterID);
-        updateVote(dbConn, voterID, vote);
+        updateVote(dbConn, vote);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -28,23 +27,26 @@ class Worker {
     }
   }
 
-  static void updateVote(Connection dbConn, String voterID, String vote) throws SQLException {
+  static void updateVote(Connection dbConn, String vote) throws SQLException {
  //   PreparedStatement insert = dbConn.prepareStatement("INSERT INTO votes (id, vote) VALUES (?, ?)");
  //   insert.setString(1, voterID);
  //   insert.setString(2, vote);
-    
-   String sql = "INSERT INTO votes  VALUES (nextval(\"vote_squence\"),"+vote+")";
-   PreparedStatement insert = dbConn.prepareStatement(sql);
 
+   String sql = "INSERT INTO votes  VALUES (nextval('vote_squence'),'"+vote+"')";
+
+    System.err.printf("Processing vote for '%s'\n", vote);
+
+    PreparedStatement insert = dbConn.prepareStatement(sql);
 
     try {
       insert.executeUpdate();
     } catch (SQLException e) {
-      PreparedStatement update = dbConn.prepareStatement(
+      e.printStackTrace();
+      /*PreparedStatement update = dbConn.prepareStatement(
         "UPDATE votes SET vote = ? WHERE id = ?");
       update.setString(1, vote);
       update.setString(2, voterID);
-      update.executeUpdate();
+      update.executeUpdate(); */
     }
   }
 
