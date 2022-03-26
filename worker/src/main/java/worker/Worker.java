@@ -29,10 +29,13 @@ class Worker {
   }
 
   static void updateVote(Connection dbConn, String voterID, String vote) throws SQLException {
-    PreparedStatement insert = dbConn.prepareStatement(
-      "INSERT INTO votes (id, vote) VALUES (?, ?)");
-    insert.setString(1, voterID);
-    insert.setString(2, vote);
+ //   PreparedStatement insert = dbConn.prepareStatement("INSERT INTO votes (id, vote) VALUES (?, ?)");
+ //   insert.setString(1, voterID);
+ //   insert.setString(2, vote);
+    
+   String sql = "INSERT INTO votes  VALUES (nextval(\"vote_squence\"),"+vote+")";
+   PreparedStatement insert = dbConn.prepareStatement(sql);
+
 
     try {
       insert.executeUpdate();
