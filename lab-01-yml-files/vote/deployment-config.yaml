@@ -1,0 +1,35 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: vote
+  namespace: attin-studio
+spec:
+  selector:
+    deploymentconfig: vote
+  strategy:
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        app: vote
+        deploymentconfig: vote
+    spec:
+      containers:
+        - env:
+            - name: REDIS_PASSWORD
+              value: redis_password
+          name: vote
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+  triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - vote
+        from:
+          kind: ImageStreamTag
+          name: 'vote:latest'
+          namespace: attin-studio
+      type: ImageChange
+    - type: ConfigChange

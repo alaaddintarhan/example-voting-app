@@ -1,0 +1,20 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: springbootpostgres
+spec:
+  runPolicy: Serial
+  source:
+      git:
+        ref: master
+        uri: https://github.com/alaaddintarhan/springboot/tree/master/spring-data-jpa-postgresql
+      type: Git
+  strategy:
+      dockerStrategy:
+      type: Docker
+  output:
+    to:
+      kind: ImageStreamTag
+      name: springbootpostgres:latest
+  triggers:
+    - type: ConfigChange

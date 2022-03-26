@@ -1,0 +1,24 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: vote
+  namespace: attin-studio
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'vote:latest'
+  runPolicy: Serial
+  source:
+    contextDir: /vote
+    git:
+      ref: master
+      uri: 'https://github.com/alaaddintarhan/example-voting-app.git'
+    type: Git
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: 'python:3.6'
+        namespace: openshift
+    type: Source

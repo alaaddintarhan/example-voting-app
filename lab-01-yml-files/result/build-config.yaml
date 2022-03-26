@@ -1,0 +1,33 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  creationTimestamp: '2022-03-26T18:04:08Z'
+  name: result
+  namespace: attin-studio
+  resourceVersion: '622231'
+  selfLink: /apis/build.openshift.io/v1/namespaces/attin-studio/buildconfigs/result
+  uid: 2211c370-ad2f-11ec-a3e2-00155d630102
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'result:latest'
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    contextDir: /result
+    git:
+      ref: master
+      uri: 'https://github.com/alaaddintarhan/example-voting-app.git'
+    type: Git
+  strategy:
+    dockerStrategy: {}
+    type: Docker
+  successfulBuildsHistoryLimit: 5
+  triggers:
+    - type: ConfigChange
+status:
+  lastVersion: 4

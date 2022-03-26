@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: '2022-03-26T12:23:45Z'
+  name: result
+  namespace: attin-studio
+  resourceVersion: '562849'
+  selfLink: /api/v1/namespaces/attin-studio/services/result
+  uid: 94b16742-acff-11ec-ae02-00155d630102
+spec:
+  clusterIP: 172.30.93.168
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    deploymentconfig: result
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

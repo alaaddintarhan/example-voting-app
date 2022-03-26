@@ -1,0 +1,46 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: db
+  namespace: attin-studio
+spec:
+  selector:
+    name: db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: db
+    spec:
+      containers:
+        - env:
+            - name: POSTGRESQL_USER
+              valueFrom:
+                secretKeyRef:
+                  key: database-user
+                  name: db
+            - name: POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database-password
+                  name: db
+            - name: POSTGRESQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  key: database-name
+                  name: db
+          name: postgresql
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+          resources:
+            limits:
+              memory: 512Mi
+          volumeMounts:
+            - mountPath: /var/lib/pgsql/data
+              name: db-data
+      volumes:
+        - name: db-data
+          persistentVolumeClaim:
+            claimName: db

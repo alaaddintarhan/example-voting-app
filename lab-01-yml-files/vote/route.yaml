@@ -1,0 +1,11 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: vote
+  namespace: attin-studio
+spec:
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: vote

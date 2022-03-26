@@ -1,0 +1,6 @@
+<RUN TO TCP FORWARD THE PORT>
+oc port-forward <postgresql-pod-name> 5432
+ 
+<RUN TO VERIFY  ON POD TERMINAL> 
+psql --host=localhost --dbname=<db-name> 
+ 

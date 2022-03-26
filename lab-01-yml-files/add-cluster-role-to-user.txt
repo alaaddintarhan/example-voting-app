@@ -1,0 +1,6 @@
+>oc create user admin --full-name=attin
+>oc adm policy add-cluster-role-to-user cluster-admin attin
+
+
+
+

@@ -1,0 +1,24 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  creationTimestamp: '2022-03-26T12:23:45Z'
+  generation: 1
+  name: result
+  namespace: attin-studio
+  resourceVersion: '628203'
+  selfLink: /apis/image.openshift.io/v1/namespaces/attin-studio/imagestreams/result
+  uid: 94a41b1c-acff-11ec-a3e2-00155d630102
+spec:
+  lookupPolicy:
+    local: false
+status:
+  dockerImageRepository: '172.30.1.1:5000/attin-studio/result'
+  tags:
+    - items:
+        - created: '2022-03-26T18:54:14Z'
+          dockerImageReference: >-
+            172.30.1.1:5000/attin-studio/result@sha256:832264aed5c90cfc5f429c84ea13540237b717a1ef6407366024e494a4973a44
+          generation: 1
+          image: >-
+            sha256:832264aed5c90cfc5f429c84ea13540237b717a1ef6407366024e494a4973a44
+      tag: latest

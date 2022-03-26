@@ -1,0 +1,79 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: worker
+  name: worker
+  namespace: attin-studio
+spec:
+  replicas: 1
+  selector:
+    app: worker
+    deploymentconfig: worker
+  strategy:
+    activeDeadlineSeconds: 21600
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        app: worker
+        deploymentconfig: worker
+    spec:
+      containers:
+          - image: 
+            imagePullPolicy: Always
+            name: worker
+            ports:
+              - containerPort: 8080
+                protocol: TCP
+              - containerPort: 8443
+                protocol: TCP
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - worker
+        from:
+          kind: ImageStreamTag
+          name: 'worker:latest'
+          namespace: attin-studio
+        lastTriggeredImage: >-
+          172.30.1.1:5000/attin-studio/worker@sha256:3dfda37ac61123fc88b4f05b7d5d605a973653b6f3023aca9795f22f0c33e7bf
+      type: ImageChange
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: '2022-03-26T16:47:45Z'
+      lastUpdateTime: '2022-03-26T16:47:45Z'
+      message: Deployment config has minimum availability.
+      status: 'True'
+      type: Available
+    - lastTransitionTime: '2022-03-26T16:47:46Z'
+      lastUpdateTime: '2022-03-26T16:47:46Z'
+      message: replication controller "worker-2" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: 'True'
+      type: Progressing
+  details:
+    causes:
+      - type: Manual
+    message: manual change
+  latestVersion: 2
+  observedGeneration: 3
+  readyReplicas: 1
+  replicas: 1
+  unavailableReplicas: 0
+  updatedReplicas: 1

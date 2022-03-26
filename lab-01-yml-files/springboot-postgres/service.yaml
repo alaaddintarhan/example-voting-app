@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: springbootpostgres
+spec:
+  selector:
+    deploymentconfig: springbootpostgres
+  ports:
+  -name 5000-tcp
+    port: 5000
+    protocol: TCP
+    targetPort: 5000

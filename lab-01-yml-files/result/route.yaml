@@ -1,0 +1,29 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: 'true'
+  creationTimestamp: '2022-03-26T12:19:23Z'
+  name: result
+  namespace: attin-studio
+  resourceVersion: '561629'
+  selfLink: /apis/route.openshift.io/v1/namespaces/attin-studio/routes/result
+  uid: f8ef06bf-acfe-11ec-a3e2-00155d630102
+spec:
+  host: result-attin-studio.172.17.78.247.nip.io
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: result
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress:
+    - conditions:
+        - lastTransitionTime: '2022-03-26T12:19:24Z'
+          status: 'True'
+          type: Admitted
+      host: result-attin-studio.172.17.78.247.nip.io
+      routerName: router
+      wildcardPolicy: None

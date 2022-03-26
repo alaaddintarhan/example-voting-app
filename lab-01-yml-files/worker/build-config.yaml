@@ -1,0 +1,21 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: worker
+spec:
+  runPolicy: Serial
+  source:
+      contextDir: /worker
+      git:
+        ref: master
+        uri: 'https://github.com/alaaddintarhan/example-voting-app.git'
+      type: Git
+  strategy:
+      dockerStrategy:
+      type: Docker
+  output:
+    to:
+      kind: ImageStreamTag
+      name: worker:latest
+  triggers:
+    - type: ConfigChange
